@@ -1,10 +1,11 @@
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
-import { Client } from "pg"; // Mudança para importar Client corretamente
+import pkg from "pg"; // Importando o pacote pg como um módulo padrão
+const { Client } = pkg; // Desestruturando Client do pacote
 
 const app = express();
-
+//codigo 3
 // Configuração do middleware
 app.use(express.json());
 app.use(cors());
@@ -18,9 +19,13 @@ const client = new Client({
   },
 });
 
+// Tentativa de conexão com o banco de dados
 client.connect()
   .then(() => console.log("Banco de dados conectado com sucesso!"))
-  .catch(err => console.error("Erro ao conectar no banco:", err));
+  .catch(err => {
+    console.error("Erro ao conectar no banco:", err);
+    process.exit(1);  // Força o aplicativo a parar caso a conexão falhe
+  });
 
 // Rota para pegar os dados
 app.get("/pegar", async (req, res) => {
