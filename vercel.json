@@ -1,0 +1,20 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "/servidor_vercel.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+        {
+        "src": "/pegar",
+        "dest": "/servidor_vercel.js"
+        },
+      {
+        "src": "(.*)",
+        "dest": "/servidor_vercel.js"
+      }
+    ]
+  }
+  
